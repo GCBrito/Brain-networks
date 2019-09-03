@@ -1,17 +1,17 @@
 ## Needed packages for network analysis ##
 
-        library(tidyverse)
-        library(corrplot)
-        library(Hmisc)
-        library(psych)
+        library(tidyverse)              #
+        library(corrplot)               #
+        library(Hmisc)                  #rcorr()
+        library(psych)                  #corr.test() ; fisherz() ; fisherz2r()
         library(PerformanceAnalytics)
         library(combinat)
         library(RColorBrewer)
         library(colorRamps)
         library(colorspace)
         library(xlsx)
-        library(readxl)
-        library(extrafont) #use font_import() before using new fonts (takes 15min)
+        library(readxl)                 #read_xlsx() ; excel_sheets() ;
+        library(extrafont)              #use font_import() before using new fonts (takes 15min)
         library(igraph)
         library(ggplot2)
         library(scales)
