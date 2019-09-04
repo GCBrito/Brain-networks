@@ -1,6 +1,6 @@
 #Import and manage data
 
-data_prepare <- function(normalise="Pons", group_names=c("4","6","11","14","16","18")) {
+data_prepare <- function(normalise="Pons") {
 
     if (file.exists("subject_data.xlsx")) {
         v <- normalizePath("subject_data.xlsx")
@@ -14,7 +14,7 @@ data_prepare <- function(normalise="Pons", group_names=c("4","6","11","14","16",
         tmp1[[i]] <- read_excel(v, i)
 
         if (normalise=="Pons") {
-            tmp1[[i]]  <-  tmp1[[i]]/as.matrix(tmp1[[i]][,"Pons"])
+            tmp1[[i]]  <-  tmp1[[i]]/as.matrix(tmp1[[i]][,normalise])
             tmp1[[i]]  <-  subset(tmp1[[i]], select=-c(Pons))
         }
 
@@ -23,7 +23,7 @@ data_prepare <- function(normalise="Pons", group_names=c("4","6","11","14","16",
             tmp1[[i]] <-  tmp1[[i]]
         }
 
-        tmp1[[i]] <- tmp1[[i]][,match(specifications$Area , colnames(tmp1[[i]]))]
+        tmp1[[i]] <- as_tibble(tmp1[[i]][,match(specifications$area , colnames(tmp1[[i]]))])
     }
 
     names(tmp1) <- excel_sheets(v)
@@ -32,12 +32,12 @@ data_prepare <- function(normalise="Pons", group_names=c("4","6","11","14","16",
 
     options(warn = -1)
     lapply(SUVr_data, as_tibble) %>%
-        lapply(mutate, subject=paste("subject",1:nrow(SUVr_data$`1 passada`), sep="_")) %>%
-            lapply(gather, Area, SUV, -subject) %>%
-                mapply(cbind, ., Time=group_names, SIMPLIFY = F) %>%
+        lapply(mutate, subject=paste("subject",1:nrow(SUVr_data[[1]]), sep="_")) %>%
+            lapply(gather, area, SUVr, -subject) %>%
+                mapply(cbind, ., group=excel_sheets(v), SIMPLIFY = F) %>%
                     bind_rows() %>%
-                        inner_join(specifications[-1], by=c("Area"="Area")) %>%
-                            arrange(Time, Region, Area, subject) %>%
+                        inner_join(specifications[-1], by=c("area"="area")) %>%
+                            arrange(group, region, area, subject) %>%
                                 as_tibble() %>%
                                     assign("tidy_data", ., pos=1)
 
