@@ -8,5 +8,4 @@ corr_matrix <- function(adj.met="fdr" ) {
                 }
         ) %>%
             assign("corr_matrices", .,pos=1)
-
 }
