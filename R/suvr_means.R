@@ -6,9 +6,8 @@ suvr_means <- function() {
             },
         SUVr_data,list(NULL)
     ) %>%
-         %>%
-
-
-
-
+        cbind(area=rownames(.)) %>%
+            as_tibble() %>%
+                gather("group", "mean_suvr",-area) %>%
+                    assign("mean_suvr",.,pos=1)
 }
