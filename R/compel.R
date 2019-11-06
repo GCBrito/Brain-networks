@@ -4,3 +4,4 @@
     # corr_matrix()
      #ntw_graph()
      #ntw_metrics()
+#  suvrmeans()

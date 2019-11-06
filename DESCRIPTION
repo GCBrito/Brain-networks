@@ -36,4 +36,6 @@ Depends:
     roxygen2,
     scales,
     xlsx,
-    tidyverse
+    tidyverse,
+    GGally,
+    geepack

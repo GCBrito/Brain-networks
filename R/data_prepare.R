@@ -2,8 +2,8 @@
 
 data_prepare <- function(normalise="Pons") {
 
-    if (file.exists("subject_data.xlsx")) {
-        v <- normalizePath("subject_data.xlsx")
+    if (file.exists("subject_data2.xlsx")) {
+        v <- normalizePath("subject_data2.xlsx")
     }   else{v <- file.choose()}
 
     specifications <- read_excel("data_specifications.xlsx")
